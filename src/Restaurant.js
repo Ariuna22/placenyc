@@ -1,6 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Restaurant = ({ id, name, description, address, image, previousRestaurant, nextRestaurant }) => {
+const Restaurant = ({ data }) => {
+  const [restaurantIndex, setRestaurantIndex] = useState(0);
+  const { id, name, description, address, image } = data[restaurantIndex];
+
+  const previousRestaurant = () => {
+    setRestaurantIndex((prevIndex) => {
+      const newIndex = prevIndex - 1;
+      return newIndex < 0 ? data.length - 1 : newIndex;
+    });
+  };
+
+  const nextRestaurant = () => {
+    setRestaurantIndex((prevIndex) => {
+      const newIndex = prevIndex + 1;
+      return newIndex >= data.length ? 0 : newIndex;
+    });
+  };
+
   return (
     <div>
       <div className="text">
@@ -24,3 +41,7 @@ const Restaurant = ({ id, name, description, address, image, previousRestaurant,
 };
 
 export default Restaurant;
+
+
+
+
