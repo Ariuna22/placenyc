@@ -1,20 +1,27 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { data } from "./data";
 
-const Restaurant = ({ data }) => {
-  const [restaurantIndex, setRestaurantIndex] = useState(0);
-  const { id, name, description, address, image } = data[restaurantIndex];
+function Restaurant() {
+  const [restaurant, setRestaurant] = useState(0);
+  const { id, name, description, address, image } = data[restaurant];
 
   const previousRestaurant = () => {
-    setRestaurantIndex((prevIndex) => {
-      const newIndex = prevIndex - 1;
-      return newIndex < 0 ? data.length - 1 : newIndex;
+    setRestaurant((restaurant) => {
+      restaurant--;
+      if (restaurant < 0) {
+        return data.length - 1;
+      }
+      return restaurant;
     });
   };
 
   const nextRestaurant = () => {
-    setRestaurantIndex((prevIndex) => {
-      const newIndex = prevIndex + 1;
-      return newIndex >= data.length ? 0 : newIndex;
+    setRestaurant((restaurant) => {
+      restaurant++;
+      if (restaurant > data.length - 1) {
+        restaurant = 0;
+      }
+      return restaurant;
     });
   };
 
@@ -38,10 +45,6 @@ const Restaurant = ({ data }) => {
       </div>
     </div>
   );
-};
+}
 
 export default Restaurant;
-
-
-
-
